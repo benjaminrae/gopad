@@ -34,6 +34,6 @@ func InitScreen() {
 
 func (t *TerminalUI) DrawTextLine(row int, text string) {
 	for i, rune := range []rune(text) {
-		t.Screen.SetContent(1+i, row, rune, nil, tcell.StyleDefault)
+		t.Screen.SetContent(LineNumbers.Width+i, row, rune, nil, tcell.StyleDefault)
 	}
 }
