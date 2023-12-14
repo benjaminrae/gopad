@@ -109,3 +109,7 @@ func (g *GapBuffer) DeleteRight() {
 	g.Buffer[gapEnd] = byte(0)
 	g.GapSize++
 }
+
+func (g *GapBuffer) ToString() string {
+	return string(g.Buffer)
+}

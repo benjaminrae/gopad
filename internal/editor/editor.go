@@ -1,15 +1,21 @@
 package editor
 
-import "log"
+import (
+	"log"
+
+	"github.com/benjaminrae/gopad/pkg/gapbuffer"
+)
 
 type Editor struct {
-	Mode Mode
+	Mode          Mode
+	CurrentBuffer gapbuffer.GapBuffer
 }
 
 func New() Editor {
 	e := Editor{}
 
 	e.SetNormalMode()
+	e.initialiseEmptyBuffer()
 
 	return e
 }
@@ -52,4 +58,12 @@ func (e *Editor) SetVisualMode() {
 	}
 
 	e.Mode = mode
+}
+
+func (e *Editor) Insert(char rune) {
+	e.CurrentBuffer.InsertRune(char)
+}
+
+func (e *Editor) initialiseEmptyBuffer() {
+	e.CurrentBuffer = gapbuffer.New(80)
 }
