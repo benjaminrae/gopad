@@ -27,7 +27,6 @@ func InitScreen() {
 	s.Clear()
 	s.SetStyle(tcell.StyleDefault)
 	s.SetCursorStyle(tcell.CursorStyleBlinkingUnderline)
-	s.ShowCursor(1, 1)
 
 	Tui.Screen = s
 }

@@ -10,5 +10,5 @@ var StatusBar = Element{
 }
 
 var LineNumbers = Element{
-	Width: 4,
+	Width: 0,
 }

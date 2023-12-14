@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/benjaminrae/gopad/internal/editor"
@@ -13,13 +12,14 @@ func main() {
 	tui.InitScreen()
 
 	editor := editor.New()
+	tui.Tui.Screen.SetCursorStyle(tcell.CursorStyleBlinkingBlock)
+	tui.Tui.Screen.ShowCursor(editor.CurrentBuffer.GapStart, 1)
 
 	for {
 		tui.Tui.Screen.Clear()
 		tui.Tui.DrawTextLine(1, editor.CurrentBuffer.ToString())
 		tui.Tui.CreateStatusBar(editor.Mode.ToString())
 		tui.Tui.Screen.Show()
-		tui.Tui.Screen.SetCursorStyle(tcell.CursorStyleBlinkingBlock)
 
 		ev := tui.Tui.Screen.PollEvent()
 		handleEvent(ev, &tui.Tui, &editor)
@@ -53,8 +53,6 @@ func handleEvent(ev tcell.Event, t *tui.TerminalUI, e *editor.Editor) {
 		}
 
 		if e.Mode.ToString() == "insert" {
-			fmt.Println(tcell.KeyNames[ev.Key()])
-
 			handler := tui.InsertKeyHandlers[ev.Key()]
 			if handler != nil {
 				handler(t, e)
@@ -62,7 +60,6 @@ func handleEvent(ev tcell.Event, t *tui.TerminalUI, e *editor.Editor) {
 			}
 
 			if ev.Key() == tcell.KeyRune {
-				fmt.Println(true)
 				tui.InsertRuneHandler(t, e, ev)
 				return
 			}
